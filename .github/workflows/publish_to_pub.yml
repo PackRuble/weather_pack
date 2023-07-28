@@ -11,19 +11,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@main
 
-      - name: 'Install Flutter and Dart SDK'
-        uses: subosito/flutter-action@v2
-        with:
-          channel: stable
+#      - name: 'Install Flutter and Dart SDK'
+#        uses: subosito/flutter-action@v2
+#        with:
+#          channel: stable
 #          flutter-version: 3.3.9
 #          cache: true
 
       - name: 'Publish Dart/Flutter package'
-        uses: sakebook/actions-flutter-pub-publisher@v1.4.1
+        uses: k-paxian/dart-package-publisher@master
         with:
-          credential: ${{ secrets.CREDENTIAL_JSON }}
-          flutter_package: false
-          skip_test: true
-          dry_run: true
+          credentialJson: ${{ secrets.CREDENTIAL_JSON }}
+          flutterBranch: stable
+          flutter: false
+          skipTests: true
+          dryRunOnly: true
