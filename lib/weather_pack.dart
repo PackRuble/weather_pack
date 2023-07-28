@@ -15,7 +15,7 @@ export 'src/services/geocoding/place_geocode_model.dart';
 
 // weather service
 export 'src/services/weather/weather_service.dart';
-export 'src/services/weather/all_weather_model.dart';
+export 'src/services/weather/all_weather_model.dart' hide parseCurrent;
 
 // others helpers
 export 'src/utils/units_measure.dart';
