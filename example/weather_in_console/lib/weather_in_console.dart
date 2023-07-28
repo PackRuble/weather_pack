@@ -5,6 +5,7 @@ import 'package:weather_pack/weather_pack.dart';
 
 // TODO: If you do not use the `--define="API_WEATHER=YOUR_APIKEY"` flag,
 //  provide the key here instead of 'null'
+// ignore: unnecessary_null_in_if_null_operators
 const String _apiKey = null ?? String.fromEnvironment('API_WEATHER');
 
 final _wService = WeatherService(_apiKey, language: WeatherLanguage.russian);
