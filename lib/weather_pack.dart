@@ -18,7 +18,7 @@ export 'src/services/weather/weather_service.dart';
 export 'src/services/weather/all_weather_model.dart';
 
 // others helpers
-export 'src/utils/conversion.dart';
+export 'src/utils/units_measure.dart';
 export 'src/utils/image_paths.dart';
 export 'src/utils/languages.dart';
 export 'src/api/api_testing.dart';

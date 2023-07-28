@@ -5,7 +5,7 @@
 ///
 /// Moreover, this standardizes our classes representing
 /// [Temp], [Speed], [Pressure] units.
-mixin EnumValue {
+mixin UnitValue {
   /// Converts value to double with [precision] and [Enum].
   ///
   /// Implemented with the use switch case.
@@ -28,7 +28,7 @@ mixin EnumValue {
 }
 
 /// Represents units of temperature measurement.
-enum Temp with EnumValue {
+enum Temp with UnitValue {
   kelvin('Kelvin', 'K'),
   celsius('Celsius', '°C'),
   fahrenheit('Fahrenheit', '°F');
@@ -75,7 +75,7 @@ enum Temp with EnumValue {
 /// * ms - meters per second
 /// * mph - miles per hour
 /// * kph or km/h - kilometers per hour
-enum Speed with EnumValue {
+enum Speed with UnitValue {
   ms('meters per second', 'm/s'),
   mph('miles per hour', 'mph'),
   kph('kilometers per hour', 'km/h');
@@ -105,14 +105,13 @@ enum Speed with EnumValue {
 }
 
 /// Represents units of pressure measurement.
-enum Pressure with EnumValue {
-  hectoPa('Hectopascal', 'hPa'), // Гектопаскали -- гПа
-  mbar('Millibar ', 'mbar'), // МиллиБары -- мБар
-  mmHg('Millimetre of mercury',
-      'mmHg'), // Миллиметры ртутного столба -- мм. рт. ст.
-  kPa('Kilopascal', 'kPa'), // Килопаскали -- кПа
-  atm('Atmosphere', 'atm'), // Атмосферы -- атм
-  inHg('Inch of mercury', 'inHg'); // Дюймы ртутного столба -- дюйм рт. ст.
+enum Pressure with UnitValue {
+  hectoPa('Hectopascal', 'hPa'),
+  mbar('Millibar ', 'mbar'),
+  mmHg('Millimetre of mercury', 'mmHg'),
+  kPa('Kilopascal', 'kPa'),
+  atm('Atmosphere', 'atm'),
+  inHg('Inch of mercury', 'inHg');
 
   const Pressure(this.name, this.abbr);
 
@@ -202,6 +201,6 @@ enum SideOfTheWorld {
     if (deg == 157.5 || deg == 202.5) return south;
     if (deg == 247.5 || deg == 292.5) return west;
 
-    throw ArgumentError('contact the package author with this value - $deg');
+    throw ArgumentError('contact the package author with this value - [$deg]');
   }
 }

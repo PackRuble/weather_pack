@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:weather_pack/src/utils/conversion.dart';
+import 'package:weather_pack/src/utils/units_measure.dart';
 
 void main() {
   group('$SideOfTheWorld', () {
