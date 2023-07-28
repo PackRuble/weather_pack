@@ -6,7 +6,7 @@ import '../../utils/parse.dart';
 /// Place returned when searching for locations by geocoding service [GeocodingService].
 class PlaceGeocode {
   const PlaceGeocode(
-    this._weatherData, {
+    this._data, {
     required this.name,
     required this.latitude,
     required this.longitude,
@@ -53,10 +53,10 @@ class PlaceGeocode {
   final String? state;
 
   /// The original JSON data from the API.
-  final Map<String, dynamic> _weatherData;
+  final Map<String, dynamic> _data;
 
   /// The original JSON data from the API
-  Map<String, dynamic> toJson() => _weatherData;
+  Map<String, dynamic> toJson() => _data;
 
   static Map<WeatherLanguage, String>? _safelyParseLocalNames(
     Map<dynamic, dynamic>? jsonData,
@@ -82,7 +82,7 @@ class PlaceGeocode {
     return localNames;
   }
 
-  // todo?: нужно ли переопределять [operator ==] and [hashCode]?
+  // todo: is probably an incorrect override: [operator ==] and [hashCode]
 
   /// Two [PlaceGeocode]s are considered equal if their longitude and latitude are the same.
   @override
