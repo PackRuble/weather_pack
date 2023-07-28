@@ -37,18 +37,6 @@ Also, all platforms are supported.</li>
 </ol>
 </details>
 
-## Resources
-
-* folder [`example`](https://github.com/PackRuble/weather_pack/tree/master/example). 
-There is a simple example of how to use the basic functions of the package, as well as a console mini-application without using flutter
-  * [![habr_badge]][habr_link]
-  * [![medium_badge]][medium_link]
-
-![](example/weather_in_console/assets/result_in_console.gif)
-
-Feel free to suggest materials for inclusion in this list ^_~
-
-
 ## Endpoints openweathermap.org
 
 Let's agree to designate _Openweathermap_ as _**OWM**_.
@@ -71,8 +59,7 @@ The library uses the following site endpoints [openweathermap.org](https://openw
 
 ## Table of Contents
 <!-- TOC -->
-  * [🌦 weather_pack](#-weather_pack)
-  * [Resources](#resources)
+  * [🌦 weather_pack](#-weatherpack)
   * [Endpoints openweathermap.org](#endpoints-openweathermaporg)
   * [Table of Contents](#table-of-contents)
   * [Installing](#installing)
@@ -82,6 +69,7 @@ The library uses the following site endpoints [openweathermap.org](https://openw
   * [Usage units measure](#usage-units-measure)
   * [Usage weather icons](#usage-weather-icons)
   * [API key testing](#api-key-testing)
+  * [Resources](#resources)
   * [Features in development](#features-in-development)
   * [Additional information](#additional-information)
 <!-- TOC -->
@@ -346,6 +334,18 @@ void worksTestedAPIkey({
   final bool isCorrect = await OWMApiTest().isCorrectApiKey(testedAPIkey);
 }
 ```
+
+
+## Resources
+
+* folder [`example`](https://github.com/PackRuble/weather_pack/tree/master/example).
+  There is a simple example of how to use the basic functions of the package, as well as a console mini-application without using flutter
+    * [![habr_badge]][habr_link]
+    * [![medium_badge]][medium_link]
+
+![](example/weather_in_console/assets/result_in_console.gif)
+
+Feel free to suggest materials for inclusion in this list ^_~
 
 
 ## Features in development
