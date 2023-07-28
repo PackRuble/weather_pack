@@ -1,16 +1,22 @@
+import 'package:meta/meta.dart';
+
 import '../../api/api.dart';
 import '../../utils/languages.dart';
-import '../http_owm_repository.dart';
+import '../checks.dart';
+import '../ovm_builder.dart';
 import 'all_weather_model.dart';
 
 /// Service for fetching weather data in JSON.
 class WeatherService {
-  WeatherService(String api, {WeatherLanguage? language})
-      : _owmApi = OWMApi(api, language: language ?? WeatherLanguage.english);
+  WeatherService(
+    String api, {
+    WeatherLanguage? language,
+    @visibleForTesting OWMBuilder? owmBuilder,
+  })  : _owmApi = OWMApi(api, language: language ?? WeatherLanguage.english),
+        _owmBuilder = owmBuilder ?? OWMBuilder();
 
   final OWMApi _owmApi;
-
-  final HttpOWMRepository _httpRepo = HttpOWMRepository();
+  final OWMBuilder _owmBuilder;
 
   /// Fetch [WeatherOneCall] based on geographical coordinates.
   ///
@@ -19,13 +25,15 @@ class WeatherService {
   Future<WeatherOneCall> oneCallWeatherByLocation({
     required double latitude,
     required double longitude,
-  }) async =>
-      _httpRepo.getData(
-        uri: _owmApi.uriOnecallWeather(latitude, longitude),
-        builder: (dynamic data) {
-          return WeatherOneCall.fromJson(data as Map<String, dynamic>);
-        },
-      );
+  }) async {
+    checkCoordinates(latitude, longitude);
+    return _owmBuilder.getData(
+      uri: _owmApi.uriOnecallWeather(latitude, longitude),
+      builder: (dynamic data) {
+        return WeatherOneCall.fromJson(data as Map<String, dynamic>);
+      },
+    );
+  }
 
   /// Fetch [WeatherCurrent] based on geographical coordinates.
   ///
@@ -34,16 +42,18 @@ class WeatherService {
   Future<WeatherCurrent> currentWeatherByLocation({
     required double latitude,
     required double longitude,
-  }) async =>
-      _httpRepo.getData(
-        uri: _owmApi.uriCurrentWeather(latitude, longitude),
-        builder: (dynamic data) {
-          return WeatherCurrent.fromJson(
-            parseCurrent(data as Map<String, dynamic>),
-          );
-        },
-      );
+  }) async {
+    checkCoordinates(latitude, longitude);
+    return _owmBuilder.getData(
+      uri: _owmApi.uriCurrentWeather(latitude, longitude),
+      builder: (dynamic data) {
+        return WeatherCurrent.fromJson(
+          parseCurrent(data as Map<String, dynamic>),
+        );
+      },
+    );
+  }
 
-  // todo: возможность получить погоду по названию места - встроенное геокодирование
-  //  берем первое местоположение - оно как правило, самое точное
+  // todo: the ability to get the weather by the name of the place - built-in geocoding
+  //  we take the first location - it is usually the most accurate
 }
