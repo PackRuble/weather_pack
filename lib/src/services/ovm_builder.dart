@@ -6,10 +6,10 @@ import 'package:http/http.dart' as http;
 import '../api/api_exception.dart';
 
 /// The class is intended for single http requests and subsequent error handling.
-class HttpOWMRepository {
-  HttpOWMRepository();
+class OWMBuilder {
+  OWMBuilder([http.Client? client]) : _client = client ?? http.Client();
 
-  final http.Client _httpClient = http.Client();
+  final http.Client _client;
 
   static const int _statusOk = 200;
 
@@ -21,7 +21,7 @@ class HttpOWMRepository {
     required T Function(dynamic data) builder,
   }) async {
     try {
-      final http.Response response = await _httpClient.get(uri);
+      final http.Response response = await _client.get(uri);
 
       switch (response.statusCode) {
         case _statusOk:
