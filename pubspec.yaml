@@ -1,20 +1,21 @@
 name: weather_pack
-description: The project is designed to obtain weather via the OpenWeatherMap API. With handy features. :)
-version: 0.0.2
+description: The project is designed to obtain weather via the OpenWeatherMap API. With geocoding and units measure. :)
+version: 0.1.0
 homepage: https://t.me/+AkGV73kZi_Q1YTMy
 repository: https://github.com/PackRuble/weather_pack
 issue_tracker: https://github.com/PackRuble/weather_pack/issues
 
 environment:
+  # todo: raise in next release ^3.0.0
   sdk: ">=2.17.0 <3.0.0" # the lower bound is related to the mixin for Enum
 
 dependencies:
-  http: ^0.13.5
+  http: ^0.13.5 # todo: raise in next release to ^1.0.0
+  meta: ^1.9.1
 
 dev_dependencies:
-  test: ^1.22.1
-
-  lint: ^2.0.1
+  test: ^1.24.4
+  lint: ^2.1.2
 
 flutter:
    assets:
@@ -25,3 +26,13 @@ screenshots:
     path: assets/images/banner.png
   - description: '(RU) This console mini-application shows how to use the package without flutter.'
     path: example/weather_in_console/assets/result_in_console.gif
+
+funding:
+  - https://t.me/+AkGV73kZi_Q1YTMy
+
+topics:
+  - weather
+  - openweathermap
+  - geocoding
+  - weather-forecast
+  - units-measure

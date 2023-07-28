@@ -92,7 +92,7 @@ The library uses the following site endpoints [openweathermap.org](https://openw
 1. Add dependency to your `pubspec.yaml`:
    ```yaml
    dependencies:
-     weather_pack: <latest_version>
+     weather_pack: ^<latest_version>
     ```
 2. Run the command: `flutter pub get`
 3. Use in your code:
@@ -181,7 +181,7 @@ According to OWM service ([See more](https://openweathermap.org/current#multi)):
 > 
 > Translation is applied for the `city name` and `description` fields.
 
-[//]: # (fixme: указать более подробно о том, где и на какие поля подействует lang)
+[//]: # (todo: specify in more detail where and on which fields the change will affect `lang`)
 
 
 ## Usage weather service
@@ -333,10 +333,6 @@ By and large, you can use the best quality regardless of platform resolution by 
 'assets/weather_icons/@4/$weatherIcon.png'
 ```
 
-[//]: # (TODO: add note - получить или прямиком из сервиса OWM)
-[//]: # (TODO: Получить статическим способом через `Enum`. А нужно ли?)
-
-
 ## API key testing
 
 It is possible to test the API key. 
@@ -354,14 +350,14 @@ void worksTestedAPIkey({
 
 ## Features in development
 
-1. [ ] Getting weather by location name (built-in geocoding).
-
+- [ ] ?Getting weather by location name (built-in geocoding)
+- [ ] ?Ability to get icons directly from openweathermap service
+- [ ] ?Designate all kinds of icons in a static way, e.g. via `enum`
 
 ## Additional information
 
 Made with ❤️. Enjoy it!
 
-[//]: # (fixme: спонсоры, проблемы, баги, сайты, помощь и тд)
 <!-- 
 ## Sponsoring
 

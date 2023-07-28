@@ -1,3 +1,11 @@
+
+## 0.1.0
+
+- fix [issue #1](https://github.com/PackRuble/weather_pack/issues/1) of hiding `parseCurrent` from public api
+- add assert for latitude and longitude
+- `WeatherService` and `GeocodingService`, and `OWMApiTest` now accept `client` as a parameter. This can be handy when testing
+- bump dependencies. The next release will be an upgrade to Dart 3.0
+
 ## 0.0.2
 
 * fix [issue #5](https://github.com/PackRuble/weather_pack/issues/5) when some boundary cases were not taken into account
