@@ -1,3 +1,6 @@
+## 1.0.0
+
+- bump dependencies. Now we use dart 3.0
 
 ## 0.1.0
 
