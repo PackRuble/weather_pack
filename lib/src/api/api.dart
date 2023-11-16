@@ -1,3 +1,5 @@
+import 'package:weather_pack/src/services/weather/weather_service.dart';
+
 import '../utils/languages.dart';
 
 /// Uri builder class for the OpenWeatherMap(OWM) API.
@@ -5,10 +7,13 @@ class OWMApi {
   OWMApi(
     this._apiKey, {
     WeatherLanguage language = WeatherLanguage.english,
-  }) : _language = language;
+    WeatherUnits units = WeatherUnits.standard,
+  })  : _language = language,
+        _unit = units;
 
   final String _apiKey;
   final WeatherLanguage _language;
+  final WeatherUnits _unit;
 
   static const String _schemeUrl = 'https';
   static const String _apiBaseUrl = 'api.openweathermap.org';
@@ -37,7 +42,7 @@ class OWMApi {
         'lon': lon,
         'appid': _apiKey,
         'lang': _language.code,
-        'units': 'standard',
+        'units': _unit.name,
       };
 
   // ===========================================================================
@@ -63,8 +68,7 @@ class OWMApi {
         'appid': _apiKey,
       };
 
-  Uri uriLocationByCoordinates(double lat, double lon, {int limit = 5}) =>
-      _buildUri(
+  Uri uriLocationByCoordinates(double lat, double lon, {int limit = 5}) => _buildUri(
         path: _apiPathGeocoding,
         endpoint: _reverseGeocodingEndpoint,
         queryParams: () => _queryParamsReverseGeocoding(lat, lon, limit),

@@ -6,13 +6,20 @@ import '../checks.dart';
 import '../ovm_builder.dart';
 import 'all_weather_model.dart';
 
+enum WeatherUnits {
+  standard,
+  metric,
+  imperial,
+}
+
 /// Service for fetching weather data in JSON.
 class WeatherService {
   WeatherService(
     String api, {
     WeatherLanguage? language,
+    WeatherUnits? units,
     @visibleForTesting OWMBuilder? owmBuilder,
-  })  : _owmApi = OWMApi(api, language: language ?? WeatherLanguage.english),
+  })  : _owmApi = OWMApi(api, language: language ?? WeatherLanguage.english, units: units ?? WeatherUnits.standard),
         _owmBuilder = owmBuilder ?? OWMBuilder();
 
   final OWMApi _owmApi;
@@ -54,6 +61,6 @@ class WeatherService {
     );
   }
 
-  // todo: the ability to get the weather by the name of the place - built-in geocoding
-  //  we take the first location - it is usually the most accurate
+// todo: the ability to get the weather by the name of the place - built-in geocoding
+//  we take the first location - it is usually the most accurate
 }
