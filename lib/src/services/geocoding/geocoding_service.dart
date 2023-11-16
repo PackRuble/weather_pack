@@ -34,7 +34,7 @@ class GeocodingService {
     int limit = 5,
   }) async =>
       _owmBuilder.getData(
-        uri: _owmApi.uriLocationByCityName(cityName),
+        uri: _owmApi.uriLocationByCityName(cityName, limit: limit),
         builder: (dynamic data) => _castData(data),
       );
 
