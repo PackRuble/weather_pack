@@ -1,9 +1,10 @@
 name: weather_pack
 description: The project is designed to obtain weather via the OpenWeatherMap API. With geocoding and units measure. :)
-version: 1.0.0
 homepage: https://t.me/+AkGV73kZi_Q1YTMy
 repository: https://github.com/PackRuble/weather_pack
 issue_tracker: https://github.com/PackRuble/weather_pack/issues
+
+version: 1.0.1
 
 environment:
   sdk: ^3.0.0
