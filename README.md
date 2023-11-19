@@ -1,5 +1,4 @@
-
-![](./assets/images/banner.png)
+<a href="https://jamesblasco.github.io/modal_bottom_sheet/#/"><img src="https://github.com/PackRuble/weather_pack/blob/master/assets/images/banner.png?raw=true"/></a>
 
 [![telegram_badge]][telegram_link]
 [![pub_badge]][pub]
