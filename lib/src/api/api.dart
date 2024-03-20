@@ -16,7 +16,7 @@ class OWMApi {
   // ===========================================================================
   // Weather
 
-  static const String _apiPathWeather = '/data/2.5/';
+  static const String _apiPathWeather = '/data/3.0/';
   static const String _currentWeatherEndpoint = 'weather';
   static const String _oneCallWeatherEndpoint = 'onecall';
 
