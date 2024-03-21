@@ -16,18 +16,19 @@ class OWMApi {
   // ===========================================================================
   // Weather
 
-  static const String _apiPathWeather = '/data/3.0/';
+  static const String _currentWeatherApiPath = '/data/2.5/';
+  static const String _oneCallWeatherApiPath = '/data/3.0/';
   static const String _currentWeatherEndpoint = 'weather';
   static const String _oneCallWeatherEndpoint = 'onecall';
 
   Uri uriCurrentWeather(double latitude, double longitude) => _buildUri(
-        path: _apiPathWeather,
+        path: _currentWeatherApiPath,
         endpoint: _currentWeatherEndpoint,
         queryParams: () => _queryParametersWeather(latitude, longitude),
       );
 
   Uri uriOnecallWeather(double latitude, double longitude) => _buildUri(
-        path: _apiPathWeather,
+        path: _oneCallWeatherApiPath,
         endpoint: _oneCallWeatherEndpoint,
         queryParams: () => _queryParametersWeather(latitude, longitude),
       );
@@ -93,7 +94,7 @@ class OWMApi {
   static Uri uriTestApikey(String apikey) => Uri(
         scheme: _schemeUrl,
         host: _apiBaseUrl,
-        path: '$_apiPathWeather$_currentWeatherEndpoint',
+        path: '$_currentWeatherApiPath$_currentWeatherEndpoint',
         queryParameters: {'appid': apikey},
       );
 
