@@ -30,7 +30,7 @@ class OWMBuilder {
           throw OwmApiException(response.statusCode, response.body);
       }
     } catch (error, stackTrace) {
-      throw OwmApiException(0, error.toString() + stackTrace.toString());
+      throw OwmApiException.error(error, stackTrace);
     }
   }
 }
