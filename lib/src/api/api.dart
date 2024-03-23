@@ -1,14 +1,31 @@
 import '../utils/languages.dart';
 
+enum OneCallApi {
+  api_2_5('2.5'),
+  api_3_0('3.0'),
+  ;
+
+  const OneCallApi(this._version);
+
+  final String _version;
+
+  static const String _endpoint = 'onecall';
+
+  String get _path => '/data/$_version/';
+}
+
 /// Uri builder class for the OpenWeatherMap(OWM) API.
 class OWMApi {
   OWMApi(
     this._apiKey, {
-    WeatherLanguage language = WeatherLanguage.english,
-  }) : _language = language;
+    required WeatherLanguage language,
+    required OneCallApi oneCallApi,
+  })  : _language = language,
+        _oneCallApi = oneCallApi;
 
   final String _apiKey;
   final WeatherLanguage _language;
+  final OneCallApi _oneCallApi;
 
   static const String _schemeUrl = 'https';
   static const String _apiBaseUrl = 'api.openweathermap.org';
@@ -16,19 +33,18 @@ class OWMApi {
   // ===========================================================================
   // Weather
 
-  static const String _apiPathWeather = '/data/2.5/';
+  static const String _apiPathCurrentWeather = '/data/2.5/';
   static const String _currentWeatherEndpoint = 'weather';
-  static const String _oneCallWeatherEndpoint = 'onecall';
 
   Uri uriCurrentWeather(double latitude, double longitude) => _buildUri(
-        path: _apiPathWeather,
+        path: _apiPathCurrentWeather,
         endpoint: _currentWeatherEndpoint,
         queryParams: () => _queryParametersWeather(latitude, longitude),
       );
 
   Uri uriOnecallWeather(double latitude, double longitude) => _buildUri(
-        path: _apiPathWeather,
-        endpoint: _oneCallWeatherEndpoint,
+        path: _oneCallApi._path,
+        endpoint: OneCallApi._endpoint,
         queryParams: () => _queryParametersWeather(latitude, longitude),
       );
 
@@ -93,7 +109,7 @@ class OWMApi {
   static Uri uriTestApikey(String apikey) => Uri(
         scheme: _schemeUrl,
         host: _apiBaseUrl,
-        path: '$_apiPathWeather$_currentWeatherEndpoint',
+        path: '$_apiPathCurrentWeather$_currentWeatherEndpoint',
         queryParameters: {'appid': apikey},
       );
 
