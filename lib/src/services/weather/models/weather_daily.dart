@@ -10,6 +10,7 @@ class WeatherDaily {
     required this.moonrise,
     required this.moonset,
     required this.moonPhase,
+    required this.summary,
     required this.tempMorning,
     required this.tempDay,
     required this.tempEvening,
@@ -56,6 +57,7 @@ class WeatherDaily {
       moonrise: unpackDate(jsonData, 'moonrise'),
       moonset: unpackDate(jsonData, 'moonset'),
       moonPhase: unpackDouble(jsonData, 'moon_phase'),
+      summary: unpackString(weather, 'summary'),
       tempMorning: unpackDouble(temp, 'morn'),
       tempDay: unpackDouble(temp, 'day'),
       tempEvening: unpackDouble(temp, 'eve'),
@@ -106,6 +108,11 @@ class WeatherDaily {
   /// between are called 'waxing crescent', 'waxing gibous', 'waning gibous',
   /// and 'waning crescent', respectively.
   final double? moonPhase;
+
+  /// Human-readable description of the weather conditions for the day.
+  ///
+  /// ! Only available in One Call API 3.
+  final String? summary;
 
   /// Morning temperature.
   final double? tempMorning;
