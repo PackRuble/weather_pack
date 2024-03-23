@@ -52,19 +52,24 @@ class WeatherCurrent {
     );
   }
 
-  /// Time of the forecasted data.
+  /// Time of the forecasted data, Unix, UTC.
   final DateTime? date;
 
-  /// Sunrise time.
+  /// Sunrise time, Unix, UTC.
   final DateTime? sunrise;
 
-  /// Sunset time.
+  /// Sunrise time, Unix, UTC. For polar areas in midnight sun and polar night
+  /// periods this parameter is not returned in the response
   final DateTime? sunset;
 
   /// Temperature now.
+  ///
+  /// Units: kelvin
   final double? temp;
 
   /// This Temperature parameter accounts for the human perception of weather.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLike;
 
   /// Atmospheric pressure, hPa
@@ -75,6 +80,8 @@ class WeatherCurrent {
 
   /// Atmospheric temperature (varying according to pressure and humidity)
   /// below which water droplets begin to condense and dew can form.
+  ///
+  /// Units: kelvin
   final double? dewPoint;
 
   /// The maximum value of UV index for the day.
@@ -83,7 +90,7 @@ class WeatherCurrent {
   /// Cloudiness, %
   final double? cloudiness;
 
-  /// Average visibility, metres
+  /// Average visibility, metres. The maximum value of the visibility is 10 km.
   final double? visibility;
 
   /// Wind speed, meter/sec

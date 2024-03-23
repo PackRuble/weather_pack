@@ -60,13 +60,17 @@ class WeatherHourly {
     );
   }
 
-  /// Time of the forecasted data.
+  /// Time of the forecasted data, Unix, UTC.
   final DateTime? date;
 
   /// Temperature now.
+  ///
+  /// Units: kelvin
   final double? temp;
 
   /// Temperature now. This accounts for the human perception of weather.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLike;
 
   /// Atmospheric pressure on the sea level, hPa (hectopascal) - 10^2
@@ -77,6 +81,8 @@ class WeatherHourly {
 
   /// Atmospheric temperature (varying according to pressure and humidity)
   /// below which water droplets begin to condense and dew can form.
+  ///
+  /// Units: kelvin
   final double? dewPoint;
 
   /// The maximum value of UV index for the day.
@@ -85,7 +91,7 @@ class WeatherHourly {
   /// Cloudiness, %
   final double? cloudiness;
 
-  /// Average visibility, metres
+  /// Average visibility, metres. The maximum value of the visibility is 10 km.
   final double? visibility;
 
   /// Wind speed, meter/sec
@@ -98,12 +104,15 @@ class WeatherHourly {
   final double? windGust;
 
   /// Probability of precipitation, %, decimal
+  ///
+  /// Probability of precipitation. The values of the parameter vary
+  /// between 0 and 1, where 0 is equal to 0%, 1 is equal to 100%
   final double? pop;
 
-  /// Rain volume for last hour, mm
+  /// Rain volume for last hour, mm/h
   final double? rain;
 
-  /// Snow volume for last hour, mm
+  /// Snow volume for last hour, mm/h
   final double? snow;
 
   /// A long description of the weather.

@@ -17,10 +17,10 @@ class WeatherMinutely {
     );
   }
 
-  /// Time of the forecasted data.
+  /// Time of the forecasted data, unix, UTC.
   final DateTime? date;
 
-  /// Precipitation volume, mm
+  /// Precipitation volume, mm/h
   final double? precipitation;
 
   /// The original JSON data from the API.

@@ -33,10 +33,10 @@ class WeatherAlert {
   /// Alert event name.
   final String? event;
 
-  /// Date and time of the start of the alert.
+  /// Date and time of the start of the alert, Unix, UTC.
   final DateTime? start;
 
-  /// Date and time of the end of the alert.
+  /// Date and time of the end of the alert, Unix, UTC.
   final DateTime? end;
 
   /// Description of the alert.

@@ -86,27 +86,36 @@ class WeatherDaily {
     );
   }
 
-  /// Time of the forecasted data.
+  /// Time of the forecasted data, Unix, UTC.
   final DateTime? date;
 
-  /// Sunrise time.
+  /// Sunrise time, Unix, UTC. For polar areas in midnight sun and polar night
+  /// periods this parameter is not returned in the response
   final DateTime? sunrise;
 
-  /// Sunset time.
+  /// Sunset time, Unix, UTC. For polar areas in midnight sun and polar night
+  /// periods this parameter is not returned in the response.
   final DateTime? sunset;
 
-  /// The time of when the moon rises for this day.
+  /// The time of when the moon rises for this day, Unix, UTC.
   final DateTime? moonrise;
 
-  /// The time of when the moon sets for this day.
+  /// The time of when the moon sets for this day, Unix, UTC.
   final DateTime? moonset;
 
   /// Moon phase.
+  /// - 0 and 1 are 'new moon',
+  /// - 0.25 is 'first quarter moon',
+  /// - 0.5 is 'full moon' and
+  /// - 0.75 is 'last quarter moon'.
   ///
-  /// 0 and 1 are 'new moon', 0.25 is 'first quarter moon',
-  /// 0.5 is 'full moon' and 0.75 is 'last quarter moon'. The periods in
-  /// between are called 'waxing crescent', 'waxing gibous', 'waning gibous',
-  /// and 'waning crescent', respectively.
+  /// The periods in between are called 'waxing crescent', 'waxing gibbous',
+  /// 'waning gibbous', and 'waning crescent', respectively.
+  ///
+  /// Moon phase calculation algorithm: if the moon phase values between the
+  /// start of the day and the end of the day have a round value (0, 0.25, 0.5, 0.75, 1.0),
+  /// then this round value is taken, otherwise the average of moon phases for the
+  /// start of the day and the end of the day is taken.
   final double? moonPhase;
 
   /// Human-readable description of the weather conditions for the day.
@@ -115,40 +124,60 @@ class WeatherDaily {
   final String? summary;
 
   /// Morning temperature.
+  ///
+  /// Units: kelvin
   final double? tempMorning;
 
   /// Day temperature.
+  ///
+  /// Units: kelvin
   final double? tempDay;
 
   /// Evening temperature.
+  ///
+  /// Units: kelvin
   final double? tempEvening;
 
   /// Night temperature.
+  ///
+  /// Units: kelvin
   final double? tempNight;
 
   /// Min daily temperature.
+  ///
+  /// Units: kelvin
   final double? tempMin;
 
   /// Max daily temperature.
+  ///
+  /// Units: kelvin
   final double? tempMax;
 
   /// This accounts for the human perception of weather.
   /// Morning temperature.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLikeMorning;
 
   /// This accounts for the human perception of weather.
   /// Day temperature.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLikeDay;
 
   /// This accounts for the human perception of weather.
   /// Evening temperature.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLikeEvening;
 
   /// This accounts for the human perception of weather.
   /// Night temperature.
+  ///
+  /// Units: kelvin
   final double? tempFeelsLikeNight;
 
-  /// Atmospheric pressure, hPa
+  /// Atmospheric pressure on the sea level, hPa
   final double? pressure;
 
   /// Humidity, %
@@ -156,6 +185,8 @@ class WeatherDaily {
 
   /// Atmospheric temperature (varying according to pressure and humidity)
   /// below which water droplets begin to condense and dew can form.
+  ///
+  /// Units: kelvin
   final double? dewPoint;
 
   /// Wind speed, meter/sec
@@ -173,13 +204,14 @@ class WeatherDaily {
   /// The maximum value of UV index for the day.
   final double? uvi;
 
-  /// Probability of precipitation.
+  /// Probability of precipitation. The values of the parameter vary
+  /// between 0 and 1, where 0 is equal to 0%, 1 is equal to 100%
   final double? pop;
 
-  /// Precipitation volume, mm
+  /// Precipitation volume, mm/h
   final double? rain;
 
-  ///  Snow volume, mm
+  ///  Snow volume, mm/h
   final double? snow;
 
   /// A long description of the weather.
