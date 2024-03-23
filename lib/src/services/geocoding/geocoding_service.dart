@@ -1,6 +1,5 @@
-import 'package:meta/meta.dart';
+import 'package:weather_pack/src/api/geocoding_api.dart';
 
-import '../../api/api.dart';
 import '../checks.dart';
 import '../ovm_builder.dart';
 import 'place_geocode_model.dart';
@@ -16,12 +15,12 @@ import 'place_geocode_model.dart';
 /// Learn more [geocoding-api](https://openweathermap.org/api/geocoding-api)
 class GeocodingService {
   GeocodingService(
-    String api, {
-    @visibleForTesting OWMBuilder? owmBuilder,
-  })  : _owmApi = OWMApi(api),
+    String apikey, {
+    OWMBuilder? owmBuilder,
+  })  : _geocodingApi = GeocodingApi(apikey),
         _owmBuilder = owmBuilder ?? OWMBuilder();
 
-  final OWMApi _owmApi;
+  final GeocodingApi _geocodingApi;
   final OWMBuilder _owmBuilder;
 
   /// Get locations based on the approximate name of the location.
@@ -34,8 +33,8 @@ class GeocodingService {
     int limit = 5,
   }) async =>
       _owmBuilder.getData(
-        uri: _owmApi.uriLocationByCityName(cityName, limit: limit),
-        builder: (dynamic data) => _castData(data),
+        uri: _geocodingApi.uriLocationByCityName(cityName, limit: limit),
+        builder: _castData,
       );
 
   /// Get locations by coordinates.
@@ -51,16 +50,17 @@ class GeocodingService {
   }) async {
     checkCoordinates(latitude, longitude);
     return _owmBuilder.getData(
-      uri: _owmApi.uriLocationByCoordinates(latitude, longitude, limit: limit),
-      builder: (dynamic data) => _castData(data),
+      uri: _geocodingApi.uriLocationByCoordinates(
+        latitude,
+        longitude,
+        limit: limit,
+      ),
+      builder: _castData,
     );
   }
 
-  // todo?: For manually parsing a list of json locations (aka "I handle it myself").
-
-  List<PlaceGeocode> _castData(dynamic data) => (data as List<dynamic>)
-      .map(
-        (dynamic json) => PlaceGeocode.fromJson(json as Map<String, dynamic>),
-      )
-      .toList();
+  List<PlaceGeocode> _castData(dynamic data) => [
+        for (final place in data as List<dynamic>)
+          PlaceGeocode.fromJson(place as Map<String, dynamic>),
+      ];
 }
