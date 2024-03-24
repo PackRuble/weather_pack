@@ -176,8 +176,6 @@ According to OWM service ([See more](https://openweathermap.org/current#multi)):
 > 
 > Translation is applied for the `city name` and `description` fields.
 
-[//]: # (todo: specify in more detail where and on which fields the change will affect `lang`)
-
 
 ## Usage weather service
 
