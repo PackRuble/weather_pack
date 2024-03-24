@@ -37,7 +37,7 @@ Future<void> getWeather() async {
 }
 
 Future<void> _checkApiKey(String apiKey) async {
-  final bool isCorrectApiKey = await OWMApiTest().isCorrectApiKey(_apiKey);
+  final bool isCorrectApiKey = await OWMTestService(_apiKey).isValidApikey();
 
   if (isCorrectApiKey) {
     stdout.writeln(' 🗝 Ключ подходит для этого замка ^_~');

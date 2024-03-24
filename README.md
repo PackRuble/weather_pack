@@ -42,13 +42,13 @@ Let's agree to designate _Openweathermap_ as _**OWM**_.
 
 The library uses the following site endpoints [openweathermap.org](https://openweathermap.org/):
 
-| api.openweathermap.org{/path/endpoint} | A {Class.method} that uses this endpoint    | See more            |
-|----------------------------------------|---------------------------------------------|---------------------|
-| /data/2.5/weather                      | `WeatherService.currentWeatherByLocation`   | [current]           |
-| /data/2.5/onecall                      | `WeatherService.oneCallWeatherByLocation`   | [one-call-api]      |
-| /data/3.0/onecall                      | `WeatherService.oneCallWeatherByLocation`   | [one-call-3]        |
-| /geo/1.0/direct                        | `GeocodingService.getLocationByCityName`    | [geocoding-direct]  |
-| /geo/1.0/reverse                       | `GeocodingService.getLocationByCoordinates` | [geocoding-reverse] |
+| api.openweathermap.org<br/>{/path/endpoint} | A {Class.method} that uses this endpoint    | See more            |
+|---------------------------------------------|---------------------------------------------|---------------------|
+| /data/2.5/weather                           | `WeatherService.currentWeatherByLocation`   | [current]           |
+| /data/2.5/onecall                           | `WeatherService.oneCallWeatherByLocation`   | [one-call-api]      |
+| /data/3.0/onecall                           | `WeatherService.oneCallWeatherByLocation`   | [one-call-3]        |
+| /geo/1.0/direct                             | `GeocodingService.getLocationByCityName`    | [geocoding-direct]  |
+| /geo/1.0/reverse                            | `GeocodingService.getLocationByCoordinates` | [geocoding-reverse] |
 
 <!-- Links -->
 [current]: https://openweathermap.org/current
@@ -71,8 +71,8 @@ The library uses the following site endpoints [openweathermap.org](https://openw
   * [Usage weather icons](#usage-weather-icons)
   * [API key testing](#api-key-testing)
   * [Resources](#resources)
-  * [Features in development](#features-in-development)
-  * [Additional information](#additional-information)
+  * [Author](#author)
+  * [Support](#support)
 <!-- TOC -->
 
 
@@ -88,7 +88,13 @@ The library uses the following site endpoints [openweathermap.org](https://openw
    ```dart
    import 'package:weather_pack/weather_pack.dart';
    ```
-
+4. \*Additionally, pull package locally to examine `example` folder:
+   ```shell
+   flutter pub unpack
+    ```
+   - `weather_in_console` - Dart console application
+   - `create_code_for_readme` - all examples from current manual
+   - `example` - easy use
 
 ## Getting Started
 
@@ -189,11 +195,23 @@ Now there are two weather models - `WeatherCurrent` and `WeatherOneCall`.
 You can get the weather in the following way:
 
 ```dart
-final WeatherCurrent current = await wService
-    .currentWeatherByLocation(latitude: 52.374, longitude: 4.88969);
+Future<void> getOnecallWeatherWays({String api = 'Your_APIkey'}) async {
+  final wService2_5 = WeatherService(api, oneCallApi: OneCallApi.api_2_5);
 
-final WeatherOneCall onecall = await wService
-    .oneCallWeatherByLocation(latitude: 52.374, longitude: 4.88969);
+  final WeatherOneCall onecall2_5 = await wService2_5.oneCallWeatherByLocation(
+      latitude: 52.374, longitude: 4.88969);
+
+  print(onecall2_5);
+
+  // if you use the "One Call API 3.0" subscription that...
+
+  final wService3_0 = WeatherService(api, oneCallApi: OneCallApi.api_3_0);
+
+  final WeatherOneCall onecall3_0 = await wService3_0.oneCallWeatherByLocation(
+      latitude: 52.374, longitude: 4.88969);
+
+  print(onecall3_0);
+}
 ```
 
 **_Why do you only use the weather search by coordinates?_**
@@ -319,7 +337,7 @@ Widget getWeatherIcon(WeatherCurrent weather) {
 }
 ```
 
-By and large, you can use the best quality regardless of platform resolution by specifying `@4` to path:
+In this case, you can use the best quality regardless of platform resolution by specifying `@4` to path:
 ```text
 'assets/weather_icons/@4/$weatherIcon.png'
 ```
@@ -329,21 +347,21 @@ By and large, you can use the best quality regardless of platform resolution by 
 It is possible to test the API key. 
 To do this, the `OWMTestService` class has a method `isValidApikeyForOneCall`:
 ```dart
-/// If the apikey is valid, it will return `true`
-void testAPIkey({
+/// If the apikey is valid, `OWMApiTest` methods will return `true`
+Future<void> testAPIkey({
   String testedAPIkey = 'your_apikey',
 }) async {
   // checking key for geocoding service and for (fetching WeatherCurrent)
-  final bool isValid = await OWMApiTest(testedAPIkey).isValidApikey();
-  
-  // checking key for "One Call by Call 3.0" service (fetching WeatherOneCall)
-  final bool isValidForOneCall = await OWMApiTest(testedAPIkey)
-      .isValidApikeyForOneCall(OneCallApi.api_3_0);
-  
-  // checking key for "One Call API 2.5" service (fetching WeatherOneCall) 
-  final bool isValidForOneCall = await OWMApiTest(testedAPIkey)
+  final bool isValid = await OWMTestService(testedAPIkey).isValidApikey();
+
+  // checking key for "One Call API 2.5" service (fetching WeatherOneCall)
+  final bool isValidOneCall2 = await OWMTestService(testedAPIkey)
       .isValidApikeyForOneCall(OneCallApi.api_2_5);
 
+  // or
+  // checking key for "One Call by Call 3.0" service (fetching WeatherOneCall)
+  final bool isValidOneCall3 = await OWMTestService(testedAPIkey)
+      .isValidApikeyForOneCall(OneCallApi.api_3_0);
 }
 ```
 
@@ -398,10 +416,10 @@ If you fixed a bug or implemented a feature, please send a [pull request][pr]. U
 [code_size_badge]: https://img.shields.io/github/languages/code-size/PackRuble/weather_pack?style=plastic
 [repo_star_badge]: https://img.shields.io/github/stars/PackRuble/weather_pack?style=plastic
 [github_link]: https://github.com/PackRuble/weather_pack
-[pub_badge]: https://img.shields.io/pub/v/weather_pack.svg?style=plastic
+[pub_badge]: https://img.shields.io/pub/v/weather_pack.svg?style=plastic&color=orange
 [pub]: https://pub.dev/packages/weather_pack
 [buy_me_a_coffee]: https://www.buymeacoffee.com/<>
 [issue]: https://github.com/PackRuble/weather_pack/issues
 [pr]: https://github.com/PackRuble/weather_pack/pulls
-[telegram_badge]: https://img.shields.io/badge/telegram-❤️-252850?style=plastic&logo=telegram
+[telegram_badge]: https://img.shields.io/badge/telegram-❤️-33cccc?style=plastic&logo=telegram
 [telegram_link]: https://t.me/+AkGV73kZi_Q1YTMy

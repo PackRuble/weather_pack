@@ -1,7 +1,5 @@
 import '../utils/languages.dart';
 
-// todo(23.03.2024): переделать под базовый класс, методы которого нужно реализовать
-
 /// Uri builder class for the OpenWeatherMap(OWM) API.
 abstract base class BaseOWMApi {
   const BaseOWMApi(this._apiKey);

@@ -27,8 +27,11 @@ class WeatherService {
     OneCallApi oneCallApi = OneCallApi.api_2_5,
     OWMBuilder? owmBuilder,
   })  : _currentWeatherApi = CurrentWeatherApi(apikey, language: language),
-        _oneCallWeatherApi = OneCallWeatherApi(apikey,
-            language: language, oneCallApi: oneCallApi),
+        _oneCallWeatherApi = OneCallWeatherApi(
+          apikey,
+          language: language,
+          oneCallApi: oneCallApi,
+        ),
         _owmBuilder = owmBuilder ?? OWMBuilder();
 
   final CurrentWeatherApi _currentWeatherApi;
