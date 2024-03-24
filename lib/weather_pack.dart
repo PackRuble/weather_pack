@@ -7,18 +7,28 @@
 /// With handy features. :)
 library weather_pack;
 
-// error handling
-export 'src/api/api_exception.dart';
-export 'src/api/api_testing.dart';
 // ignore_for_file: directives_ordering
 
+// api
+export 'src/api/api_exception.dart' show OwmApiException;
+export 'src/api/onecall_api.dart' show OneCallApi;
+export 'src/api/test_api.dart' show OWMTestService;
 // geocoding service
-export 'src/services/geocoding/geocoding_service.dart';
-export 'src/services/geocoding/place_geocode_model.dart';
-export 'src/services/weather/all_weather_model.dart' hide parseCurrent;
+export 'src/services/geocoding/geocoding_service.dart' show GeocodingService;
+export 'src/services/geocoding/place_geocode_model.dart' show PlaceGeocode;
+export 'src/services/ovm_builder.dart' show OWMBuilder;
 // weather service
-export 'src/services/weather/weather_service.dart';
-export 'src/utils/image_paths.dart';
-export 'src/utils/languages.dart';
+export 'src/services/weather/all_weather_model.dart'
+    show
+        WeatherAlert,
+        WeatherCurrent,
+        WeatherDaily,
+        WeatherHourly,
+        WeatherMinutely,
+        WeatherOneCall;
+export 'src/services/weather/weather_service.dart' show WeatherService;
+export 'src/utils/image_paths.dart' show ImagePathWeather;
+export 'src/utils/languages.dart' show WeatherLanguage, codeAndLangMatching;
 // others helpers
-export 'src/utils/units_measure.dart';
+export 'src/utils/units_measure.dart'
+    show Pressure, SideOfTheWorld, Speed, Temp, UnitValue;
