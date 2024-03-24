@@ -1,23 +1,19 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:test/test.dart';
-import 'package:weather_pack/src/services/weather/all_weather_model.dart';
+import 'package:weather_pack/src/services/weather/models/weather_current.dart'
+    show parseCurrent;
+import 'package:weather_pack/weather_pack.dart';
+
+import 'source/source.dart';
 
 // ignore_for_file: avoid_print
 
 void main() {
   group('$WeatherCurrent', () {
-    const List<String> currentPaths = [
-      'test/source/current_16.02.22.json',
-      // add here when will need
-    ];
-
-    test('$WeatherCurrent.fromJson', () async {
-      for (final path in currentPaths) {
-        final String response = await File(path).readAsString();
-
-        final data = await json.decode(response);
+    test('$WeatherCurrent.fromJson by source', () async {
+      for (final jsonData in await weatherCurrentData) {
+        final data = await json.decode(jsonData);
 
         final current =
             WeatherCurrent.fromJson(parseCurrent(data as Map<String, dynamic>));
@@ -32,17 +28,9 @@ void main() {
   });
 
   group('$WeatherOneCall', () {
-    const List<String> oneCallPaths = [
-      'test/source/one_call_16.02.22.json',
-      'test/source/one_call_17.10.22.json',
-      // add here when will need
-    ];
-
-    test('$WeatherOneCall.fromJson', () async {
-      for (final path in oneCallPaths) {
-        final String response = await File(path).readAsString();
-
-        final data = await json.decode(response);
+    test('$WeatherOneCall.fromJson by source', () async {
+      for (final jsonData in await oneCallData) {
+        final data = await json.decode(jsonData);
 
         final oneCall = WeatherOneCall.fromJson(data as Map<String, dynamic>);
 
