@@ -82,11 +82,9 @@ class PlaceGeocode {
     return localNames;
   }
 
-  // todo: is probably an incorrect override: [operator ==] and [hashCode]
-
   /// Two [PlaceGeocode]s are considered equal if their longitude and latitude are the same.
   @override
-  bool operator ==(dynamic other) =>
+  bool operator ==(Object other) =>
       identical(this, other) ||
       (other.runtimeType == runtimeType &&
           other is PlaceGeocode &&
