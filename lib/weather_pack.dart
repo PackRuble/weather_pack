@@ -16,7 +16,7 @@ export 'src/api/test_api.dart' show OWMTestService;
 // geocoding service
 export 'src/services/geocoding/geocoding_service.dart' show GeocodingService;
 export 'src/services/geocoding/place_geocode_model.dart' show PlaceGeocode;
-export 'src/services/ovm_builder.dart' show OWMBuilder;
+export 'src/services/owm_builder.dart' show OWMBuilder;
 // weather service
 export 'src/services/weather/all_weather_model.dart'
     show

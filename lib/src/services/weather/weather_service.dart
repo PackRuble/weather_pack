@@ -3,7 +3,7 @@ import 'package:weather_pack/src/api/current_weather_api.dart';
 import '../../api/onecall_api.dart';
 import '../../utils/languages.dart';
 import '../checks.dart';
-import '../ovm_builder.dart';
+import '../owm_builder.dart';
 import 'all_weather_model.dart';
 
 /// Service for fetching weather data:

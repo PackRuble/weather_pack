@@ -1,7 +1,7 @@
 import 'package:weather_pack/src/api/geocoding_api.dart';
 
 import '../checks.dart';
-import '../ovm_builder.dart';
+import '../owm_builder.dart';
 import 'place_geocode_model.dart';
 
 /// The class provides access to the geocoding service of cities.
