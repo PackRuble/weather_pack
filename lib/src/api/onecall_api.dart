@@ -1,5 +1,6 @@
 import 'base_api.dart';
 
+/// Defines the API version for accessing the "One Call" weather.
 enum OneCallApi {
   api_2_5('2.5'),
   api_3_0('3.0'),
