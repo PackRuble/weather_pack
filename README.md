@@ -294,6 +294,58 @@ There are several units of measurement:
 💡 **Tip**: The `SideOfTheWorld` enum contains a static method `fromDegrees()` for converting degrees
 to cardinal directions.
 
+## Usage custom client
+
+For `GeocodingService` and `WeatherService` you can create a custom `OWMBuilder` for debugging and logging cases:
+
+```dart
+class OWMBuilderCustom extends OWMBuilder {
+  /// We output the url to the console for debugging and logging
+  @override
+  Future<T> getData<T>(
+      {required Uri uri, required T Function(dynamic data) builder}) {
+    print(uri);
+    return super.getData(uri: uri, builder: builder);
+  }
+}
+
+void workOwmBuilder({
+  String api = 'your_apikey',
+}) async {
+  final customOWMBuilder = OWMBuilderCustom();
+  final gService = GeocodingService(api, owmBuilder: customOWMBuilder);
+
+  final List<PlaceGeocode> places = await gService.getLocationByCoordinates(
+      latitude: 52.374, longitude: 4.88969);
+
+  print(places);
+}
+```
+
+For `OWMTestService` you can create a custom `Client`. A more low-level way, would require an explicit dependency on the `http` package:
+
+```dart
+class CustomClient extends IOClient {
+  /// We output the url to the console
+  @override
+  Future<Response> get(Uri url, {Map<String, String>? headers}) {
+    print(url);
+    return super.get(url, headers: headers);
+  }
+}
+
+/// We output the url to the console for debugging
+void workCustomClient({
+  String api = 'your_apikey',
+}) async {
+  final customClient = CustomClient();
+  final testService = OWMTestService(api, customClient);
+
+  final bool isValidKey = await testService.isValidApikey();
+
+  print(isValidKey);
+}
+```
 
 ## Usage weather icons
 
@@ -365,7 +417,6 @@ Future<void> testAPIkey({
 }
 ```
 
-
 ## Resources
 
 - folder [`example`](https://github.com/PackRuble/weather_pack/tree/master/example).
@@ -383,6 +434,7 @@ Future<void> testAPIkey({
 ![](example/weather_in_console/assets/result_in_console.gif)
 
 Feel free to suggest materials for inclusion in this list ^_~
+
 
 ## Author
 

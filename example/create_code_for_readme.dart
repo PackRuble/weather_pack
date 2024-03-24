@@ -1,3 +1,5 @@
+import 'package:http/http.dart';
+import 'package:http/io_client.dart';
 import 'package:weather_pack/weather_pack.dart';
 
 // ignore_for_file: type=lint, dead_code, unused_local_variable
@@ -12,7 +14,7 @@ main() async {
 }
 
 void worksGeocodeService({
-  String api = 'Your_APIkey',
+  String api = 'your_apikey',
 }) async {
   final gService = GeocodingService(api);
 
@@ -23,7 +25,7 @@ void worksGeocodeService({
 }
 
 Future<void> getWeatherEasyWay({
-  String api = 'Your_APIkey',
+  String api = 'your_apikey',
   WeatherLanguage lang = WeatherLanguage.italian,
 }) async {
   final wService = WeatherService(api, language: lang);
@@ -92,4 +94,54 @@ Future<void> testAPIkey({
   // checking key for "One Call by Call 3.0" service (fetching WeatherOneCall)
   final bool isValidOneCall3 = await OWMTestService(testedAPIkey)
       .isValidApikeyForOneCall(OneCallApi.api_3_0);
+}
+
+// -----------------------------------------------------------------------------
+
+/// Easier to implement.
+class OWMBuilderCustom extends OWMBuilder {
+  /// We output the url to the console for debugging
+  @override
+  Future<T> getData<T>(
+      {required Uri uri, required T Function(dynamic data) builder}) {
+    print(uri);
+    return super.getData(uri: uri, builder: builder);
+  }
+}
+
+void workOwmBuilder({
+  String api = 'your_apikey',
+}) async {
+  final customOWMBuilder = OWMBuilderCustom();
+  final gService = GeocodingService(api, owmBuilder: customOWMBuilder);
+
+  final List<PlaceGeocode> places = await gService.getLocationByCoordinates(
+      latitude: 52.374, longitude: 4.88969);
+
+  print(places);
+}
+
+// -----------------------------------------------------------------------------
+
+/// A more low-level way, would require an explicit dependency on the `http` package
+///
+class CustomClient extends IOClient {
+  /// We output the url to the console for debugging
+  @override
+  Future<Response> get(Uri url, {Map<String, String>? headers}) {
+    print(url);
+    return super.get(url, headers: headers);
+  }
+}
+
+/// We output the url to the console for debugging
+void workCustomClient({
+  String api = 'your_apikey',
+}) async {
+  final customClient = CustomClient();
+  final testService = OWMTestService(api, customClient);
+
+  final bool isValidKey = await testService.isValidApikey();
+
+  print(isValidKey);
 }
