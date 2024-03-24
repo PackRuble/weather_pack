@@ -35,6 +35,5 @@ final class GeocodingApi extends BaseOWMApi {
 
   /// -> param:
   /// * limit: Number of the locations in the API response (no more than 5)
-  Map<String, String> _queryParams(int limit) =>
-      {'limit': limit.toString(), ...queryParamsApi};
+  Map<String, String> _queryParams(int limit) => {'limit': limit.toString()};
 }

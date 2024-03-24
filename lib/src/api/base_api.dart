@@ -1,15 +1,17 @@
 import '../utils/languages.dart';
 
+// todo(23.03.2024): переделать под базовый класс, методы которого нужно реализовать
+
 /// Uri builder class for the OpenWeatherMap(OWM) API.
 abstract base class BaseOWMApi {
   const BaseOWMApi(this._apiKey);
 
   final String _apiKey;
 
-  static const String _schemeUrl = 'https';
-  static const String _apiBaseUrl = 'api.openweathermap.org';
+  static const String schemeUrl = 'https';
+  static const String apiBaseUrl = 'api.openweathermap.org';
 
-  /// [_schemeUrl]://[_apiBaseUrl]/[path]/[endpoint]?[queryParams]
+  /// [_schemeUrl]://[apiBaseUrl]/[path]/[endpoint]?[queryParams]
   ///
   /// Examples:
   ///
@@ -24,17 +26,15 @@ abstract base class BaseOWMApi {
   Uri buildUri({
     required String path,
     required String endpoint,
-    required Map<String, String> queryParams,
+    Map<String, String>? queryParams,
   }) =>
       Uri(
-        scheme: _schemeUrl,
-        host: _apiBaseUrl,
+        scheme: schemeUrl,
+        host: apiBaseUrl,
         path: '$path/$endpoint',
         //  type `queryParameters` only is /*String|Iterable<String>*/
-        queryParameters: queryParams,
+        queryParameters: {...?queryParams, 'appid': _apiKey},
       );
-
-  Map<String, String> get queryParamsApi => {'appid': _apiKey};
 }
 
 abstract base class WeatherApi extends BaseOWMApi {
@@ -52,6 +52,5 @@ base mixin WeatherParams on WeatherApi {
         'lon': lon.toString(),
         'lang': _language.code,
         'units': 'standard',
-        ...queryParamsApi,
       };
 }

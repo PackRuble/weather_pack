@@ -5,9 +5,9 @@ enum OneCallApi {
   api_3_0('3.0'),
   ;
 
-  const OneCallApi(this._version);
+  const OneCallApi(this.version);
 
-  final String _version;
+  final String version;
 }
 
 final class OneCallWeatherApi extends WeatherApi with WeatherParams {
@@ -19,13 +19,13 @@ final class OneCallWeatherApi extends WeatherApi with WeatherParams {
 
   final OneCallApi _oneCallApi;
 
-  String get _apiPathOneCallWeather => 'data/${_oneCallApi._version}';
+  String get _apiPath => 'data/${_oneCallApi.version}';
 
-  static const _oneCallWeatherEndpoint = 'onecall';
+  static const _endpoint = 'onecall';
 
   Uri uriOneCallWeather(double latitude, double longitude) => buildUri(
-        path: _apiPathOneCallWeather,
-        endpoint: _oneCallWeatherEndpoint,
+        path: _apiPath,
+        endpoint: _endpoint,
         queryParams: queryParametersWeather(latitude, longitude),
       );
 }
