@@ -1,4 +1,7 @@
-<a href="https://jamesblasco.github.io/modal_bottom_sheet/#/"><img src="https://github.com/PackRuble/weather_pack/blob/master/assets/images/banner.png?raw=true"/></a>
+<a href="https://github.com/PackRuble/weather_pack/"><img src="https://github.com/PackRuble/weather_pack/blob/master/assets/images/banner.png?raw=true"/></a>
+
+
+## 🌦 weather_pack
 
 [![telegram_badge]][telegram_link]
 [![pub_badge]][pub]
@@ -6,11 +9,7 @@
 [![mit_license_badge]][mit_license]
 [![code_size_badge]][github_link]
 
-## 🌦 weather_pack
-
 A quick way to get access to weather conditions.
-
----
 
 **Why choose this library?**
 
@@ -36,29 +35,32 @@ Also, all platforms are supported.</li>
 </ol>
 </details>
 
+
 ## Endpoints openweathermap.org
 
 Let's agree to designate _Openweathermap_ as _**OWM**_.
 
 The library uses the following site endpoints [openweathermap.org](https://openweathermap.org/):
 
-| Endpoint or Path                        | A class or method that uses this endpoint   | See more            |
-|-----------------------------------------|---------------------------------------------|---------------------|
-| api.openweathermap.org/data/2.5/weather | `WeatherService.currentWeatherByLocation`   | [current]           |
-| api.openweathermap.org/data/2.5/onecall | `WeatherService.oneCallWeatherByLocation`   | [one-call-api]      |
-| api.openweathermap.org/geo/1.0/direct   | `GeocodingService.getLocationByCityName`    | [geocoding-direct]  |
-| api.openweathermap.org/geo/1.0/reverse  | `GeocodingService.getLocationByCoordinates` | [geocoding-reverse] |
+| api.openweathermap.org{/path/endpoint} | A {Class.method} that uses this endpoint    | See more            |
+|----------------------------------------|---------------------------------------------|---------------------|
+| /data/2.5/weather                      | `WeatherService.currentWeatherByLocation`   | [current]           |
+| /data/2.5/onecall                      | `WeatherService.oneCallWeatherByLocation`   | [one-call-api]      |
+| /data/3.0/onecall                      | `WeatherService.oneCallWeatherByLocation`   | [one-call-3]        |
+| /geo/1.0/direct                        | `GeocodingService.getLocationByCityName`    | [geocoding-direct]  |
+| /geo/1.0/reverse                       | `GeocodingService.getLocationByCoordinates` | [geocoding-reverse] |
 
 <!-- Links -->
 [current]: https://openweathermap.org/current
 [one-call-api]: https://openweathermap.org/api/one-call-api
+[one-call-3]: https://openweathermap.org/api/one-call-3
 [geocoding-direct]: https://openweathermap.org/api/geocoding-api#direct
 [geocoding-reverse]: https://openweathermap.org/api/geocoding-api#reverse
 
 
 ## Table of Contents
 <!-- TOC -->
-  * [🌦 weather_pack](#-weatherpack)
+  * [🌦 weather_pack](#-weather_pack)
   * [Endpoints openweathermap.org](#endpoints-openweathermaporg)
   * [Table of Contents](#table-of-contents)
   * [Installing](#installing)
@@ -93,7 +95,7 @@ The library uses the following site endpoints [openweathermap.org](https://openw
 The easiest way to get the current weather:
 ```dart
 Future<void> main() async {
-  const api = 'YOUR_APIKEY'; // TODO: change to your Openweathermap APIkey
+  const api = 'YOUR_APIKEY'; // TODO: change to your openweathermap APIkey
   final wService = WeatherService(api);
 
   // get the current weather in Amsterdam
@@ -205,6 +207,7 @@ According to the website OWM:
 
 
 ## Usage geocoding service
+
 `GeocodingService` is a service for easy location search when working with geographical names
 and coordinates. Supports both the direct and reverse methods:
 - Direct geocoding converts the specified name of a location or zip/post code into
@@ -230,7 +233,8 @@ final List<PlaceGeocode> places = await gService.getLocationByCityName(cityName)
 
 or use reverse geocoding
 ```dart
-final List<PlaceGeocode> places = await gService.getLocationByCoordinates(latitude: 52.374, longitude: 4.88969);
+final List<PlaceGeocode> places = await gService.getLocationByCoordinates(
+    latitude: 52.374, longitude: 4.88969);
 ```
 
 
@@ -323,56 +327,70 @@ By and large, you can use the best quality regardless of platform resolution by 
 ## API key testing
 
 It is possible to test the API key. 
-To do this, the `OWMApiTest` class has a method `isCorrectApiKey()`:
+To do this, the `OWMTestService` class has a method `isValidApikeyForOneCall`:
 ```dart
-void worksTestedAPIkey({
-  String testedAPIkey = 'Your_key',
+/// If the apikey is valid, it will return `true`
+void testAPIkey({
+  String testedAPIkey = 'your_apikey',
 }) async {
+  // checking key for geocoding service and for (fetching WeatherCurrent)
+  final bool isValid = await OWMApiTest(testedAPIkey).isValidApikey();
+  
+  // checking key for "One Call by Call 3.0" service (fetching WeatherOneCall)
+  final bool isValidForOneCall = await OWMApiTest(testedAPIkey)
+      .isValidApikeyForOneCall(OneCallApi.api_3_0);
+  
+  // checking key for "One Call API 2.5" service (fetching WeatherOneCall) 
+  final bool isValidForOneCall = await OWMApiTest(testedAPIkey)
+      .isValidApikeyForOneCall(OneCallApi.api_2_5);
 
-  // If the key is correct, it will return `true`
-  final bool isCorrect = await OWMApiTest().isCorrectApiKey(testedAPIkey);
 }
 ```
 
 
 ## Resources
 
-* folder [`example`](https://github.com/PackRuble/weather_pack/tree/master/example).
+- folder [`example`](https://github.com/PackRuble/weather_pack/tree/master/example).
   There is a simple example of how to use the basic functions of the package, as well as a console mini-application without using flutter
-    * [![habr_badge]][habr_link]
-    * [![medium_badge]][medium_link]
+    - [![habr_badge]][habr_link] [Как создать консольное приложение на языке dart, используя пакет weather_pack?][habr_link]
+    - [![medium_badge]][medium_link] [How to create a console application in dart using the weather_pack package?][medium_link]
+
+<!-- Links -->
+
+[habr_badge]: https://img.shields.io/badge/habr-RU-F9DFCF?style=plastic&logo=habr
+[habr_link]: https://habr.com/ru/post/708854/
+[medium_badge]: https://img.shields.io/badge/medium-EN-C8A2C8?style=plastic&logo=medium
+[medium_link]: https://medium.com/@pack.ruble/how-to-create-a-console-application-in-dart-using-the-weather-pack-package-68ed814f1903
 
 ![](example/weather_in_console/assets/result_in_console.gif)
 
 Feel free to suggest materials for inclusion in this list ^_~
 
+## Author
 
-## Features in development
+You can contact me or check out my activities on the following platforms:
 
-- [ ] ?Getting weather by location name (built-in geocoding)
-- [ ] ?Ability to get icons directly from openweathermap service
-- [ ] ?Designate all kinds of icons in a static way, e.g. via `enum`
+- [Github](https://github.com/PackRuble)
+- [Telegram Group](https://t.me/+AkGV73kZi_Q1YTMy)
+- [StackOverflow](https://stackoverflow.com/users/17991131/ruble)
+- [Medium](https://medium.com/@pack.ruble)
+- [Habr](https://habr.com/ru/users/PackRuble/)
 
-## Additional information
+> Made with ❤️. Enjoy it!
 
-Made with ❤️. Enjoy it!
-
-<!-- 
-## Sponsoring
-
-I'm working on my packages on my free-time, but I don't have as much time as I would. 
-If this package or any other package I created is helping you, please consider to sponsor me so 
-that I can take time to read the issues, fix bugs, merge pull requests and add features 
-to these packages.
-
-## Sponsors
+## Support
 
 Feel free to contribute to this project.
 
-If you find a bug or want a feature, but don't know how to fix/implement it, 
-please fill an [issue][issue].  
-If you fixed a bug or implemented a feature, please send a [pull request][pr].
- -->
+If you find a bug or want a feature, but don't know how to fix/implement it, please fill an [issue][issue].  
+
+If you fixed a bug or implemented a feature, please send a [pull request][pr]. Use `dev` branch for this.
+
+---
+
+<h6>
+🏷 tags: weather, openWeather, openweathermap, weather forecast, metcast, W/F, reverse/direct geocoding, units measure, temperature, pressure, speed 
+</h6>
 
 <!-- Links -->
 [mit_license_badge]: https://img.shields.io/badge/license-MIT-green?style=plastic
@@ -387,13 +405,3 @@ If you fixed a bug or implemented a feature, please send a [pull request][pr].
 [pr]: https://github.com/PackRuble/weather_pack/pulls
 [telegram_badge]: https://img.shields.io/badge/telegram-❤️-252850?style=plastic&logo=telegram
 [telegram_link]: https://t.me/+AkGV73kZi_Q1YTMy
-[habr_badge]: https://img.shields.io/badge/habr-RU-F9DFCF?style=plastic&logo=habr
-[habr_link]: https://habr.com/ru/post/708854/
-[medium_badge]: https://img.shields.io/badge/medium-EN-C8A2C8?style=plastic&logo=medium
-[medium_link]: https://medium.com/@pack.ruble/how-to-create-a-console-application-in-dart-using-the-weather-pack-package-68ed814f1903
-
----
-
-<h6>
-🏷 tags: weather, openWeather, openweathermap, weather forecast, metcast, W/F, reverse/direct geocoding, units measure, temperature, pressure, speed 
-</h6>
