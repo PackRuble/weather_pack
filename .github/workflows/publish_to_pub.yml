@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     tags:
-      - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: '1.2.3'
+      - '**'
 
 jobs:
   publish:
@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@main
 
-      - name: 'Publish Dart/Flutter package'
+      - name: 'Publish Dart package'
         uses: k-paxian/dart-package-publisher@master
         with:
           credentialJson: ${{ secrets.CREDENTIAL_JSON }}
@@ -21,3 +21,4 @@ jobs:
           flutter: false
           skipTests: true
           dryRunOnly: false
+          force: false
