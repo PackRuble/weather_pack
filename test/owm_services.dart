@@ -1,7 +1,7 @@
 import 'package:test/test.dart';
 import 'package:weather_pack/weather_pack.dart';
 
-import 'tested_apikey.dart';
+import 'stub_apikey.dart';
 
 // ignore: unreachable_from_main
 const apikey = testedApikey;
