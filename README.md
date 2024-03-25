@@ -1,7 +1,6 @@
 <a href="https://github.com/PackRuble/weather_pack/"><img src="https://github.com/PackRuble/weather_pack/blob/master/assets/images/banner.png?raw=true"/></a>
 
-
-## 🌦 weather_pack
+## weather_pack
 
 [![telegram_badge]][telegram_link]
 [![pub_badge]][pub]
@@ -9,7 +8,7 @@
 [![mit_license_badge]][mit_license]
 [![code_size_badge]][github_link]
 
-A quick way to get access to weather conditions.
+A quick way to get access to weather conditions 🌦.
 
 **Why choose this library?**
 
@@ -60,7 +59,7 @@ The library uses the following site endpoints [openweathermap.org](https://openw
 
 ## Table of Contents
 <!-- TOC -->
-  * [🌦 weather_pack](#-weather_pack)
+  * [weather_pack](#weather_pack)
   * [Endpoints openweathermap.org](#endpoints-openweathermaporg)
   * [Table of Contents](#table-of-contents)
   * [Installing](#installing)
