@@ -24,3 +24,4 @@
 .packages
 build/
 /.fvm
+/test/tested_apikey.dart
