@@ -145,3 +145,19 @@ void workCustomClient({
 
   print(isValidKey);
 }
+
+// -----------------------------------------------------------------------------
+
+void exceptionHandling() async {
+  final wService = WeatherService('bRoKen_aPi');
+
+  WeatherCurrent? current;
+  try {
+    current =
+        await wService.currentWeatherByLocation(latitude: 1, longitude: 1);
+  } on OwmApiException catch (e, s) {
+    print(e.code);
+    print(e.message);
+    print(s);
+  }
+}

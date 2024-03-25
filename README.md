@@ -68,6 +68,8 @@ The library uses the following site endpoints [openweathermap.org](https://openw
   * [Usage weather service](#usage-weather-service)
   * [Usage geocoding service](#usage-geocoding-service)
   * [Usage units measure](#usage-units-measure)
+  * [Exception handling](#exception-handling)
+  * [Usage custom client](#usage-custom-client)
   * [Usage weather icons](#usage-weather-icons)
   * [API key testing](#api-key-testing)
   * [Resources](#resources)
@@ -291,6 +293,28 @@ There are several units of measurement:
 
 💡 **Tip**: The `SideOfTheWorld` enum contains a static method `fromDegrees()` for converting degrees
 to cardinal directions.
+
+
+## Exception handling
+
+Each of the methods in the `WeatherService` and `GeocodingService` services can throw an `OwmApiException` exception. You can process them as follows:
+
+```dart
+void exceptionHandling() async {
+  final wService = WeatherService('bRoKen_aPi');
+
+  WeatherCurrent? current;
+  try {
+    current =
+        await wService.currentWeatherByLocation(latitude: 1, longitude: 1);
+  } on OwmApiException catch (e, s) {
+    print(e.code);
+    print(e.message);
+    print(s);
+  }
+}
+```
+
 
 ## Usage custom client
 
