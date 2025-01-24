@@ -59,6 +59,29 @@ class GeocodingService {
     );
   }
 
+  /// Get locations based on zip/post code and country code.
+  ///
+  /// This method fetches the geographical coordinates and corresponding
+  /// location names for a specified zip/post code and country code.
+  ///
+  /// params:
+  /// * zipCode -> The zip or postal code of the location.
+  /// * countryCode -> The two-letter ISO 3166 country code (e.g., "US" for the United States).
+  /// * limit -> Number of the locations in the API response (no more than 5, default is 5).
+  ///
+  /// Returns:
+  /// A list of [PlaceGeocode] objects containing location information.
+  Future<List<PlaceGeocode>> getLocationByZipAndCountryCode({
+    required String zipCode,
+    required String countryCode,
+    int limit = 5,
+  }) async {
+    return _owmBuilder.getData(
+      uri: _geocodingApi.uriLocationByZip(zipCode, countryCode, limit: limit),
+      builder: _castData,
+    );
+  }
+
   List<PlaceGeocode> _castData(dynamic data) => [
         for (final place in data as List<dynamic>)
           PlaceGeocode.fromJson(place as Map<String, dynamic>),

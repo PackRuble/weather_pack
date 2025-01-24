@@ -5,6 +5,7 @@ final class GeocodingApi extends BaseOWMApi {
 
   static const String _apiPathGeocoding = 'geo/1.0';
   static const String _directGeocodingEndpoint = 'direct';
+  static const String _zipGeocodingEndpoint = 'zip';
   static const String _reverseGeocodingEndpoint = 'reverse';
 
   Uri uriLocationByCityName(String cityName, {int limit = 5}) => buildUri(
@@ -20,6 +21,13 @@ final class GeocodingApi extends BaseOWMApi {
         queryParams: _queryParamsReverseGeocoding(lat, lon, limit),
       );
 
+  Uri uriLocationByZip(String zipCode, String countryCode, {int limit = 5}) =>
+      buildUri(
+        path: _apiPathGeocoding,
+        endpoint: _zipGeocodingEndpoint,
+        queryParams: _queryParamsZipGeocoding(zipCode, countryCode, limit),
+      );
+
   Map<String, String> _queryParamsDirectGeocoding(
     String cityName,
     int limit,
@@ -32,6 +40,13 @@ final class GeocodingApi extends BaseOWMApi {
     int limit,
   ) =>
       {'lat': lat.toString(), 'lon': lon.toString(), ..._queryParams(limit)};
+
+  Map<String, String> _queryParamsZipGeocoding(
+    String zipCode,
+    String countryCode,
+    int limit,
+  ) =>
+      {'zip': '$zipCode,$countryCode', ..._queryParams(limit)};
 
   /// -> param:
   /// * limit: Number of the locations in the API response (no more than 5)
