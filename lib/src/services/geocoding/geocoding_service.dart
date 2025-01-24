@@ -71,16 +71,19 @@ class GeocodingService {
   ///
   /// Returns:
   /// A list of [PlaceGeocode] objects containing location information.
-  Future<List<PlaceGeocode>> getLocationByZipAndCountryCode({
+  Future<PlaceGeocode> getLocationByZipAndCountryCode({
     required String zipCode,
     required String countryCode,
     int limit = 5,
   }) async {
     return _owmBuilder.getData(
       uri: _geocodingApi.uriLocationByZip(zipCode, countryCode, limit: limit),
-      builder: _castData,
+      builder: _castSingleData,
     );
   }
+
+  PlaceGeocode _castSingleData(dynamic data) =>
+      PlaceGeocode.fromJson(data as Map<String, dynamic>);
 
   List<PlaceGeocode> _castData(dynamic data) => [
         for (final place in data as List<dynamic>)
