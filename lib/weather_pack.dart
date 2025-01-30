@@ -1,4 +1,4 @@
-// Copyright (c) 2022-2024 Ruble Pack
+// Copyright (c) 2022-2025 Ruble Pack
 //
 // Use of this source code is governed by the license found in the LICENSE file.
 

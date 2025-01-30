@@ -21,7 +21,9 @@ Future<void> main() async {
 Using `GeocodingService` you can get the city by coordinates:
 
 ```dart
-void main() async {
+import 'package:weather_pack/weather_pack.dart';
+
+Future<void> main() async {
   const api = 'YOUR_APIKEY'; // TODO: change to your Openweathermap APIkey
   final gService = GeocodingService(api);
 
