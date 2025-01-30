@@ -1,14 +1,17 @@
 <a href="https://github.com/PackRuble/weather_pack/"><img src="https://github.com/PackRuble/weather_pack/blob/master/assets/images/banner.png?raw=true"/></a>
 
+
 ## weather_pack
 
 [![telegram_badge]][telegram_link]
-[![pub_badge]][pub]
-[![repo_star_badge]][github_link]
+[![pub_badge]][pub_link]
+[![repo_star_badge]][repo_link]]
 [![mit_license_badge]][mit_license]
-[![code_size_badge]][github_link]
+[![code_size_badge]][repo_link]]
 
 A quick way to get access to weather conditions 🌦.
+
+> Put a ![][pub_like_icon] on [Pub][pub_link] and favorite ⭐ on [Github][repo_link] to keep up with changes and not miss new releases!
 
 **Why choose this library?**
 
@@ -41,19 +44,21 @@ Let's agree to designate _Openweathermap_ as _**OWM**_.
 
 The library uses the following site endpoints [openweathermap.org](https://openweathermap.org/):
 
-| api.openweathermap.org<br/>{/path/endpoint} | A {Class.method} that uses this endpoint    | See more            |
-|---------------------------------------------|---------------------------------------------|---------------------|
-| /data/2.5/weather                           | `WeatherService.currentWeatherByLocation`   | [current]           |
-| /data/2.5/onecall                           | `WeatherService.oneCallWeatherByLocation`   | [one-call-api]      |
-| /data/3.0/onecall                           | `WeatherService.oneCallWeatherByLocation`   | [one-call-3]        |
-| /geo/1.0/direct                             | `GeocodingService.getLocationByCityName`    | [geocoding-direct]  |
-| /geo/1.0/reverse                            | `GeocodingService.getLocationByCoordinates` | [geocoding-reverse] |
+| api.openweathermap.org<br/>{/path/endpoint} | A {Class.method} that uses this endpoint          | See more               |
+|---------------------------------------------|---------------------------------------------------|------------------------|
+| /data/2.5/weather                           | `WeatherService.currentWeatherByLocation`         | [current]              |
+| /data/2.5/onecall                           | `WeatherService.oneCallWeatherByLocation`         | [one-call-api]         |
+| /data/3.0/onecall                           | `WeatherService.oneCallWeatherByLocation`         | [one-call-3]           |
+| /geo/1.0/direct                             | `GeocodingService.getLocationByCityName`          | [geocoding-direct]     |
+| /geo/1.0/reverse                            | `GeocodingService.getLocationByCoordinates`       | [geocoding-reverse]    |
+| /geo/1.0/zip                                | `GeocodingService.getLocationByZipAndCountryCode` | [geocoding-direct_zip] |
 
 <!-- Links -->
 [current]: https://openweathermap.org/current
 [one-call-api]: https://openweathermap.org/api/one-call-api
 [one-call-3]: https://openweathermap.org/api/one-call-3
 [geocoding-direct]: https://openweathermap.org/api/geocoding-api#direct
+[geocoding-direct_zip]: https://openweathermap.org/api/geocoding-api#direct_zip
 [geocoding-reverse]: https://openweathermap.org/api/geocoding-api#reverse
 
 
@@ -248,10 +253,19 @@ To find using place names use direct geocoding:
 final List<PlaceGeocode> places = await gService.getLocationByCityName(cityName);
 ```
 
-or use reverse geocoding
+or use reverse geocoding:
 ```dart
 final List<PlaceGeocode> places = await gService.getLocationByCoordinates(
     latitude: 52.374, longitude: 4.88969);
+```
+
+To find using country code and zip code use zip geocoding:
+```dart
+final PlaceGeocode place = await gService.getLocationByZipAndCountryCode(
+  zipCode: 'E14',
+  countryCode: 'GB',
+// # todo: limit is bug
+);
 ```
 
 
@@ -484,13 +498,15 @@ If you fixed a bug or implemented a feature, please send a [pull request][pr]. U
 </h6>
 
 <!-- Links -->
+
 [mit_license_badge]: https://img.shields.io/badge/license-MIT-green?style=plastic
 [mit_license]: https://github.com/PackRuble/weather_pack/blob/master/LICENSE
 [code_size_badge]: https://img.shields.io/github/languages/code-size/PackRuble/weather_pack?style=plastic
 [repo_star_badge]: https://img.shields.io/github/stars/PackRuble/weather_pack?style=plastic
-[github_link]: https://github.com/PackRuble/weather_pack
+[repo_link]: https://github.com/PackRuble/weather_pack
 [pub_badge]: https://img.shields.io/pub/v/weather_pack.svg?style=plastic&color=orange
-[pub]: https://pub.dev/packages/weather_pack
+[pub_link]: https://pub.dev/packages/weather_pack
+[pub_like_icon]: https://pub.dev/static/hash-ffjootqp/img/like-active.svg
 [buy_me_a_coffee]: https://www.buymeacoffee.com/<>
 [issue]: https://github.com/PackRuble/weather_pack/issues
 [pr]: https://github.com/PackRuble/weather_pack/pulls
