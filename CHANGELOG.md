@@ -1,7 +1,8 @@
-[//]: # (## [1.1.0] - 01-01-2024)
+## [1.2.0] - 06-02-2025
 
-[//]: # ()
-[//]: # (-)
+- new: `GeocodingService.getLocationByZipAndCountryCode` to get `PlaceZip' locations (thanks dokumanx for [#23](https://github.com/PackRuble/weather_pack/pull/7))
+- upd: minimum supported SDK version to **Dart 3.4.0**
+- fix: [#21](https://github.com/PackRuble/weather_pack/issues/21) No need to pass StackTrace to API error message (also, nested errors)
 
 ## [1.1.0] - 25-03-2024
 

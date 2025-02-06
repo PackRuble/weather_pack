@@ -6,7 +6,7 @@ homepage: https://t.me/+AkGV73kZi_Q1YTMy
 repository: https://github.com/PackRuble/weather_pack
 issue_tracker: https://github.com/PackRuble/weather_pack/issues
 
-version: 1.1.0
+version: 1.2.0
 
 environment:
   sdk: ^3.4.0

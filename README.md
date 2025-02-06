@@ -5,9 +5,9 @@
 
 [![telegram_badge]][telegram_link]
 [![pub_badge]][pub_link]
-[![repo_star_badge]][repo_link]]
+[![repo_star_badge]][repo_link]
 [![mit_license_badge]][mit_license]
-[![code_size_badge]][repo_link]]
+[![code_size_badge]][repo_link]
 
 A quick way to get access to weather conditions 🌦.
 
