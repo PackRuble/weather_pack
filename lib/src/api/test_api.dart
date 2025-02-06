@@ -27,8 +27,8 @@ final class OWMTestService extends BaseOWMApi {
       final http.Response response = await _client.get(uri);
 
       return response.statusCode == _statusOkTestApi;
-    } catch (error, stackTrace) {
-      throw OwmApiException.error(error, stackTrace);
+    } catch (error) {
+      throw OwmApiException.error(error);
     }
   }
 
