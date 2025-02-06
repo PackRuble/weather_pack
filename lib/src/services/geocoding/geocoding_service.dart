@@ -3,6 +3,7 @@ import 'package:weather_pack/src/api/geocoding_api.dart';
 import '../checks.dart';
 import '../owm_builder.dart';
 import 'place_geocode_model.dart';
+import 'zip_place.dart';
 
 /// The class provides access to the geocoding service of cities.
 ///
@@ -59,31 +60,32 @@ class GeocodingService {
     );
   }
 
-  /// Get locations based on zip/post code and country code.
+  /// Get location based on zip/post code and country code.
   ///
   /// This method fetches the geographical coordinates and corresponding
   /// location names for a specified zip/post code and country code.
   ///
-  /// params:
+  /// Params:
   /// * zipCode -> The zip or postal code of the location.
   /// * countryCode -> The two-letter ISO 3166 country code (e.g., "US" for the United States).
-  /// * limit -> Number of the locations in the API response (no more than 5, default is 5).
   ///
   /// Returns:
-  /// A list of [PlaceGeocode] objects containing location information.
-  Future<PlaceGeocode> getLocationByZipAndCountryCode({
+  /// A [PlaceZip] object containing location information.
+  Future<PlaceZip> getLocationByZipAndCountryCode({
     required String zipCode,
     required String countryCode,
-    int limit = 5,
   }) async {
     return _owmBuilder.getData(
-      uri: _geocodingApi.uriLocationByZip(zipCode, countryCode, limit: limit),
+      uri: _geocodingApi.uriLocationByZip(
+        zipCode: zipCode,
+        countryCode: countryCode,
+      ),
       builder: _castSingleData,
     );
   }
 
-  PlaceGeocode _castSingleData(dynamic data) =>
-      PlaceGeocode.fromJson(data as Map<String, dynamic>);
+  PlaceZip _castSingleData(dynamic placeZip) =>
+      PlaceZip.fromJson(placeZip as Map<String, dynamic>);
 
   List<PlaceGeocode> _castData(dynamic data) => [
         for (final place in data as List<dynamic>)

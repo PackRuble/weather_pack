@@ -264,7 +264,6 @@ To find using country code and zip code use zip geocoding:
 final PlaceGeocode place = await gService.getLocationByZipAndCountryCode(
   zipCode: 'E14',
   countryCode: 'GB',
-// # todo: limit is bug
 );
 ```
 
