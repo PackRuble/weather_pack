@@ -23,14 +23,14 @@ class OWMBuilder {
     try {
       final http.Response response = await _client.get(uri);
 
-      switch (response.statusCode) {
-        case _statusOk:
-          return builder(json.decode(response.body));
-        default:
-          throw OwmApiException(response.statusCode, response.body);
-      }
-    } catch (error, stackTrace) {
-      throw OwmApiException.error(error, stackTrace);
+      return switch (response.statusCode) {
+        _statusOk => builder(json.decode(response.body)),
+        _ => throw OwmApiException(response.statusCode, response.body),
+      };
+    } on OwmApiException catch (_) {
+      rethrow;
+    } catch (error) {
+      throw OwmApiException.error(error);
     }
   }
 }

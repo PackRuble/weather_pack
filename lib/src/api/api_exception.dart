@@ -4,8 +4,8 @@
 class OwmApiException implements Exception {
   const OwmApiException(this.code, this.message);
 
-  OwmApiException.error(Object error, StackTrace stackTrace)
-      : message = '$error\n$stackTrace',
+  OwmApiException.error(Object? error)
+      : message = '$error',
         code = 0;
 
   /// Message about error.
