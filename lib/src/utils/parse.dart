@@ -71,3 +71,17 @@ DateTime? unpackDate(Map<String, dynamic>? M, String k) {
   }
   return null;
 }
+
+/// Safely unpacks a time in seconds from a [Map] object,
+/// i.e. an integer value of seconds and converts this to a [Duration] object.
+Duration? unpackDuration(Map<String, dynamic>? M, String k) {
+  if (M != null) {
+    if (M.containsKey(k)) {
+      final value = M[k];
+      if (value is int) {
+        return Duration(seconds: value);
+      }
+    }
+  }
+  return null;
+}

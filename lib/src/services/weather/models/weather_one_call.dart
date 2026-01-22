@@ -48,7 +48,7 @@ class WeatherOneCall {
       latitude: unpackDouble(jsonData, 'lat'),
       longitude: unpackDouble(jsonData, 'lon'),
       timezone: unpackString(jsonData, 'timezone'),
-      timezoneOffset: unpackDate(jsonData, 'timezone_offset'),
+      timezoneOffset: unpackDuration(jsonData, 'timezone_offset'),
       current: currentData?.isNotEmpty ?? false
           ? WeatherCurrent.fromJson(currentData! as Map<String, dynamic>)
           : null,
@@ -85,7 +85,7 @@ class WeatherOneCall {
   final String? timezone;
 
   /// Shift in seconds from UTC.
-  final DateTime? timezoneOffset;
+  final Duration? timezoneOffset;
 
   /// Current weather.
   final WeatherCurrent? current;
