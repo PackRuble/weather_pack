@@ -12,3 +12,7 @@ linter:
     prefer_single_quotes: true
     sort_pub_dependencies: false
 #    public_member_api_docs: true
+
+formatter:
+  page_width: 80
+  trailing_commas: preserve
