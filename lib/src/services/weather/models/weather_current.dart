@@ -5,17 +5,23 @@ class WeatherCurrent {
   const WeatherCurrent(
     this._weatherData, {
     required this.date,
+    required this.timezoneOffset,
     required this.sunrise,
     required this.sunset,
     required this.temp,
+    required this.tempMin,
+    required this.tempMax,
     required this.tempFeelsLike,
     required this.visibility,
     required this.pressure,
+    required this.pressureSurface,
     required this.humidity,
     required this.dewPoint,
     required this.windSpeed,
     required this.windDegree,
     required this.windGust,
+    required this.rain,
+    required this.snow,
     required this.cloudiness,
     required this.uvi,
     required this.weatherDescription,
@@ -32,11 +38,16 @@ class WeatherCurrent {
     return WeatherCurrent(
       jsonData,
       date: unpackDate(jsonData, 'dt'),
+      timezoneOffset: unpackDuration(jsonData, 'timezone_offset'),
       sunrise: unpackDate(jsonData, 'sunrise'),
       sunset: unpackDate(jsonData, 'sunset'),
       temp: unpackDouble(jsonData, 'temp'),
+      tempMin: unpackDouble(jsonData, 'temp_min'),
+      tempMax: unpackDouble(jsonData, 'temp_max'),
       tempFeelsLike: unpackDouble(jsonData, 'feels_like'),
-      pressure: unpackDouble(jsonData, 'pressure'),
+      pressure: unpackDouble(jsonData, 'pressure') ??
+          unpackDouble(jsonData, 'sea_level'),
+      pressureSurface: unpackDouble(jsonData, 'grnd_level'),
       humidity: unpackDouble(jsonData, 'humidity'),
       dewPoint: unpackDouble(jsonData, 'dew_point'),
       cloudiness: unpackDouble(jsonData, 'clouds'),
@@ -45,6 +56,8 @@ class WeatherCurrent {
       windSpeed: unpackDouble(jsonData, 'wind_speed'),
       windDegree: unpackDouble(jsonData, 'wind_deg'),
       windGust: unpackDouble(jsonData, 'wind_gust'),
+      rain: unpackDouble(jsonData['rain'] as Map<String, dynamic>?, '1h'),
+      snow: unpackDouble(jsonData['snow'] as Map<String, dynamic>?, '1h'),
       weatherDescription: unpackString(weatherData, 'description'),
       weatherMain: unpackString(weatherData, 'main'),
       weatherIcon: unpackString(weatherData, 'icon'),
@@ -54,6 +67,9 @@ class WeatherCurrent {
 
   /// Time of the forecasted data, Unix, UTC.
   final DateTime? date;
+
+  /// Shift in seconds from UTC.
+  final Duration? timezoneOffset;
 
   /// Sunrise time, Unix, UTC.
   final DateTime? sunrise;
@@ -67,13 +83,28 @@ class WeatherCurrent {
   /// Units: kelvin
   final double? temp;
 
+  /// Min daily temperature.
+  ///
+  /// Units: kelvin
+  final double? tempMin;
+
+  /// Max daily temperature.
+  ///
+  /// Units: kelvin
+  final double? tempMax;
+
   /// This Temperature parameter accounts for the human perception of weather.
   ///
   /// Units: kelvin
   final double? tempFeelsLike;
 
-  /// Atmospheric pressure, hPa
+  /// Atmospheric pressure on the sea level, hPa
   final double? pressure;
+
+  /// Atmospheric pressure on the ground level, hPa
+  ///
+  /// Note: available only for [WeatherService.currentWeatherByLocation] request.
+  final double? pressureSurface;
 
   /// Humidity, %
   final double? humidity;
@@ -101,6 +132,12 @@ class WeatherCurrent {
 
   /// Wind gust, meter/sec
   final double? windGust;
+
+  /// Rain volume for last hour, mm/h
+  final double? rain;
+
+  /// Snow volume for last hour, mm/h
+  final double? snow;
 
   /// A long description of the weather.
   final String? weatherDescription;
@@ -134,14 +171,20 @@ Map<String, dynamic> parseCurrent(Map<String, dynamic> jsonCurrent) {
     'sunrise': unpackMap(jsonCurrent, 'sys')?['sunrise'],
     'sunset': unpackMap(jsonCurrent, 'sys')?['sunset'],
     'temp': unpackMap(jsonCurrent, 'main')?['temp'],
+    'temp_min': unpackMap(jsonCurrent, 'main')?['temp_min'],
+    'temp_max': unpackMap(jsonCurrent, 'main')?['temp_max'],
     'feels_like': unpackMap(jsonCurrent, 'main')?['feels_like'],
     'pressure': unpackMap(jsonCurrent, 'main')?['pressure'],
+    'sea_level': unpackMap(jsonCurrent, 'main')?['sea_level'],
+    'grnd_level': unpackMap(jsonCurrent, 'main')?['grnd_level'],
     'humidity': unpackMap(jsonCurrent, 'main')?['humidity'],
     'clouds': unpackMap(jsonCurrent, 'clouds')?['all'],
     'visibility': jsonCurrent['visibility'],
     'wind_speed': unpackMap(jsonCurrent, 'wind')?['speed'],
     'wind_deg': unpackMap(jsonCurrent, 'wind')?['deg'],
     'wind_gust': unpackMap(jsonCurrent, 'wind')?['gust'],
+    'rain': jsonCurrent['rain'],
+    'snow': jsonCurrent['snow'],
     'weather': jsonCurrent['weather'],
   };
 }

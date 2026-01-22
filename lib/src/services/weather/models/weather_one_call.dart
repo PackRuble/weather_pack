@@ -33,15 +33,38 @@ class WeatherOneCall {
   });
 
   /// Check [List] to empty or null.
-  static bool _isData<T extends List?>(T data) => data?.isNotEmpty ?? false;
+  static bool _hasData<T extends List?>(T data) => data?.isNotEmpty ?? false;
 
   /// Creating [WeatherOneCall] instance from json.
   factory WeatherOneCall.fromJson(Map<String, dynamic> jsonData) {
-    final currentData = unpackMap(jsonData, 'current');
+    final currentData = unpackMap(jsonData, 'current') as Map<String, dynamic>?;
     final minutelyData = unpackList(jsonData, 'minutely');
     final hourlyData = unpackList(jsonData, 'hourly');
     final dailyData = unpackList(jsonData, 'daily');
     final alertsData = unpackList(jsonData, 'alerts');
+
+    final daily = _hasData(dailyData)
+        ? dailyData!
+            .map((w) => WeatherDaily.fromJson(w as Map<String, dynamic>))
+            .toList()
+        : null;
+
+    final dtFromCurrent =
+        currentData != null ? unpackDate(currentData, 'dt') : null;
+    double? tempMinForCurrent;
+    double? tempMaxForCurrent;
+    if (dtFromCurrent != null) {
+      for (final dailyWeather in daily ?? <WeatherDaily>[]) {
+        final dt = dailyWeather.date;
+        if (dtFromCurrent.day == dt?.day &&
+            dtFromCurrent.month == dt?.month &&
+            dtFromCurrent.year == dt?.year) {
+          tempMinForCurrent = dailyWeather.tempMin;
+          tempMaxForCurrent = dailyWeather.tempMax;
+          break;
+        }
+      }
+    }
 
     return WeatherOneCall(
       jsonData,
@@ -49,25 +72,26 @@ class WeatherOneCall {
       longitude: unpackDouble(jsonData, 'lon'),
       timezone: unpackString(jsonData, 'timezone'),
       timezoneOffset: unpackDuration(jsonData, 'timezone_offset'),
-      current: currentData?.isNotEmpty ?? false
-          ? WeatherCurrent.fromJson(currentData! as Map<String, dynamic>)
+      current: currentData?.isNotEmpty == true
+          ? WeatherCurrent.fromJson({
+              ...?currentData,
+              'timezone_offset': jsonData['timezone_offset'],
+              'temp_min': tempMinForCurrent,
+              'temp_max': tempMaxForCurrent,
+            })
           : null,
-      minutely: _isData(minutelyData)
+      minutely: _hasData(minutelyData)
           ? minutelyData!
               .map((w) => WeatherMinutely.fromJson(w as Map<String, dynamic>))
               .toList()
           : null,
-      hourly: _isData(hourlyData)
+      hourly: _hasData(hourlyData)
           ? hourlyData!
               .map((w) => WeatherHourly.fromJson(w as Map<String, dynamic>))
               .toList()
           : null,
-      daily: _isData(dailyData)
-          ? dailyData!
-              .map((w) => WeatherDaily.fromJson(w as Map<String, dynamic>))
-              .toList()
-          : null,
-      alerts: _isData(alertsData)
+      daily: daily,
+      alerts: _hasData(alertsData)
           ? alertsData!
               .map((w) => WeatherAlert.fromJson(w as Map<String, dynamic>))
               .toList()
