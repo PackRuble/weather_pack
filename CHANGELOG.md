@@ -1,3 +1,9 @@
+## [1.3.0] - 22-01-2026
+
+- 🧨fix: `WeatherOneCall.timezoneOffset` must be of type `Duration` [#19](https://github.com/PackRuble/weather_pack/issues/19)
+- add: `WeatherCurrent.timezoneOffset`, `.tempMin`, `.tempMax`, `.rain`, `.snow` (available for `oneCallWeatherByLocation` and `currentWeatherByLocation`) and `WeatherCurrent.pressureSurface` (available only for `currentWeatherByLocation`) [#18](https://github.com/PackRuble/weather_pack/issues/18)
+- upd: dependencies to latest
+
 ## [1.2.0] - 06-02-2025
 
 - new: `GeocodingService.getLocationByZipAndCountryCode` to get `PlaceZip` locations (thanks dokumanx for [#23](https://github.com/PackRuble/weather_pack/pull/7))
