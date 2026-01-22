@@ -5,7 +5,7 @@
 /// The project is designed to obtain weather via the OpenWeatherMap API.
 ///
 /// With handy features. :)
-library weather_pack;
+library;
 
 // ignore_for_file: directives_ordering
 
